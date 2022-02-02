@@ -1,12 +1,8 @@
 ## Student Management App
-// create student
+# create student
 
-//form to capture the details 
- input element for 
-: Name 
-: Class 
-: Age
-: Email
+form to capture the details 
+ input element for : Name : Class : Age : Email
 
 
 
