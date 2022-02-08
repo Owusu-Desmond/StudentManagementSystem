@@ -63,6 +63,9 @@ function listStudent(student_name, student_class, student_age, student_email){
         <td>${student_class}</td>
         <td>${student_age}</td>
         <td>${student_email}</td>
+        <td><a class="btn btn-danger btn-sm">
+        <i class="bi bi-pencil-square edit" data-name="${student_name}" data-age="${student_age}" data-email="${student_email}" data-class="${student_class}">
+        </i></a></td>
         <td><a class="btn btn-danger btn-sm delete" data-email="${student_email}">X</a></td>
     `;
     list.appendChild(row)
@@ -73,24 +76,45 @@ function clearForm(){
     document.querySelector('#class').value = '';
     document.querySelector('#age').value  = '';
     document.querySelector('#email').value = '';
-    document.querySelector('#error-conttainer').value = '';
+    document.querySelector('#error-container').innerHTML = '';
 }
-
-function deleteStudent(event){
-    if (event.target.classList.contains('delete')) {
-        const email = event.target.dataset.email;
-        document.querySelector(`.student_row[data-email="${email}"]`).remove();
-       
-        let students = fetchStudentsFromStore();
+        // fetch students and remove student from store
+function fetchAndAddStudents(email){
+    let students = fetchStudentsFromStore();
         students.forEach((student, index) => {
            if(student.email === email){
                students.splice(index, 1)
            }
         });
         addStudentsToStore(students);
+}
+function deleteStudent(event){
+    if (event.target.classList.contains('delete')) {
+        const email = event.target.dataset.email;
+        document.querySelector(`.student_row[data-email="${email}"]`).remove();
+        // fetch students and remove student from store
+        fetchAndAddStudents(email);
+        
     }
 }
+function editStudent(event){
+    if(event.target.classList.contains('edit')){
+        const email = event.target.dataset.email;
+        const name = event.target.dataset.name;
+        const age = event.target.dataset.age;
+        const level = event.target.dataset.class;
+        // collect data from list
+        document.querySelector('#name').value = name;
+        document.querySelector('#class').value = level;
+        document.querySelector('#age').value  = age;
+        document.querySelector('#email').value = email;
 
+        document.querySelector(`.student_row[data-email="${email}"]`).remove();
+
+        fetchAndAddStudents(email);
+        
+    }
+}
 function fetchStudentsFromStore(){
     let students = JSON.parse(localStorage.getItem('students'));
     return students;
@@ -110,7 +134,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
         listStudent(student.name, student.class, student.age, student.email)
     }
 })
-
+// delete a student
 document.querySelector('#students_list').addEventListener('click', (event) => {
     deleteStudent(event)
 });
+// edit student data 
+document.querySelector('#students_list').addEventListener('click', (event) =>{
+    editStudent(event);
+})
