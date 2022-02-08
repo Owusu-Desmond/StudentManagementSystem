@@ -1,10 +1,40 @@
+function validation(student_name,student_age,student_email){
+        
+    let error = document.querySelector('#error-container');
+    // if student is too young to be a student
+    if(student_age < 1){
+        error.innerHTML = "Student age is not valid"
+        return true;
+    }
+    // if student name length is too small
+    if(student_name.length < 4){
+        error.innerHTML = "Student name is too short"
+        return true;
+    }
+    // if email already exit
+    let students = fetchStudentsFromStore();
+    let foundStudent = false;
+    students.forEach((student) => {
+        if(student_email === student.email){
+            error.innerHTML = 'Student email aready exit'
+            foundStudent = true;
+           
+        }
+    });
+    
+    return foundStudent;     
+}
+
 function addStudent(){
     //capture the student info 
     let student_name = document.querySelector('#name').value 
     let student_class = document.querySelector('#class').value 
-    let student_age = document.querySelector('#age').value 
+    let student_age = parseInt(document.querySelector('#age').value) 
     let student_email = document.querySelector('#email').value 
-
+    // form validation
+    if(validation(student_name,student_age,student_email)){
+        return;
+    }
    //store the information 
    let students = fetchStudentsFromStore();
     if(students === null){
@@ -39,10 +69,11 @@ function listStudent(student_name, student_class, student_age, student_email){
 }
 
 function clearForm(){
-    document.querySelector('#name').value = ''
-    document.querySelector('#class').value = ''
-    document.querySelector('#age').value  = ''
-    document.querySelector('#email').value = ''
+    document.querySelector('#name').value = '';
+    document.querySelector('#class').value = '';
+    document.querySelector('#age').value  = '';
+    document.querySelector('#email').value = '';
+    document.querySelector('#error-conttainer').value = '';
 }
 
 function deleteStudent(event){

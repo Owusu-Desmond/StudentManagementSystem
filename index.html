@@ -14,22 +14,29 @@
             <i class="fas fa-user-graduate"></i>
             Student<span class="text-primary">Management</span>App
         </h1>
-        <form id="student_form">
+        <form class="fs-4" id="student_form">
+            <div id="error-container" class="mt-4 mb-2 text-center text-danger"></div>
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" id="name" class="form-control" required>
+                <input type="text" id="name" class="fs-4 form-control" required>
             </div>
             <div class="form-group">
                 <label for="class">Class</label>
-                <input type="text" id="class" class="form-control" required>
+
+            <select id="class" class="fs-4 form-select" aria-label="Default select example">
+                <option value="1">One(1)</option>
+                <option value="2">Two(2)</option>
+                <option value="3">Three(3)</option>
+                <option value="3">Four(4)</option>
+              </select>
             </div>
             <div class="form-group">
                 <label for="age">Age</label>
-                <input type="number" id="age" class="form-control" required>
+                <input type="number" id="age" class="fs-4 form-control" required>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" class="form-control" required>
+                <input type="email" id="email" class="fs-4 form-control" required>
             </div>
             <input type="submit" value="Add Student" class="btn btn-primary btn-block" style="margin-top: 10px !important;">
         </form>
