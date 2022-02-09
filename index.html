@@ -25,10 +25,10 @@
                 <label for="class">Class</label>
 
             <select id="class" class="fs-4 form-select" aria-label="Default select example">
-                <option value="1">One(1)</option>
-                <option value="2">Two(2)</option>
-                <option value="3">Three(3)</option>
-                <option value="3">Four(4)</option>
+                <option value="One(1)">One(1)</option>
+                <option value="Two(2)">Two(2)</option>
+                <option value="Three(3)">Three(3)</option>
+                <option value="Four(4)">Four(4)</option>
               </select>
             </div>
             <div class="form-group">
@@ -41,6 +41,10 @@
             </div>
             <input type="submit" value="Add Student" class="btn btn-primary btn-block" style="margin-top: 10px !important;">
         </form>
+    <div class="input-group mt-5">
+      <span class="input-group-text">@</span>
+      <input type="text" id="search" onkeyup="searchStudent()" class="form-control" placeholder="Search student name here ..."  aria-describedby="inputGroupPrepend2">
+    </div>
         <table class="table table-striped mt-5" id ='students_list'>
             <tr>
                 <th>Names</th>

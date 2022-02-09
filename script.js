@@ -20,8 +20,7 @@ function validation(student_name,student_age,student_email){
             foundStudent = true;
            
         }
-    });
-    
+    }); 
     return foundStudent;     
 }
 
@@ -56,8 +55,9 @@ function addStudent(){
 function listStudent(student_name, student_class, student_age, student_email){
     const list = document.querySelector('#students_list');
     const row = document.createElement('tr');
-    row.dataset.email = student_email
-    row.classList.add('student_row')
+    row.dataset.email = student_email;
+    row.dataset.name = student_name;
+    row.classList.add('student_row');
     row.innerHTML = `
         <td>${student_name}</td>
         <td>${student_class}</td>
@@ -97,6 +97,7 @@ function deleteStudent(event){
         
     }
 }
+// edit student data
 function editStudent(event){
     if(event.target.classList.contains('edit')){
         const email = event.target.dataset.email;
@@ -122,12 +123,28 @@ function fetchStudentsFromStore(){
 function addStudentsToStore(students){
     localStorage.setItem('students', JSON.stringify(students))
 }
+// search by student name
+function searchStudent(){
+    let input_value , filter, table , tr;
+    input_value = document.querySelector('#search').value;
+    filter = input_value.toUpperCase();
+    table = document.querySelector('#students_list');
+    tr = table.getElementsByTagName('tr');
 
+    // Loop through all list items, and hide those who don't match the search query
+    for(let i = 1; i < tr.length; i++){
+        names = tr[i].dataset.name;
+        if(names.toUpperCase().indexOf(filter) > -1){
+            tr[i].style.display = '';
+        }else{
+            tr[i].style.display = "none";
+        }
+    }
+}
 document.querySelector('#student_form').addEventListener('submit',  (event) => {
     event.preventDefault();
     addStudent();
 });
-
 document.addEventListener('DOMContentLoaded', (event) => {
     let students = fetchStudentsFromStore();
     for(let student of students){
