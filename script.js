@@ -79,7 +79,7 @@ function clearForm(){
     document.querySelector('#error-container').innerHTML = '';
 }
         // fetch students and remove student from store
-function fetchAndAddStudents(email){
+function deleteStudentFromStore(email){
     let students = fetchStudentsFromStore();
         students.forEach((student, index) => {
            if(student.email === email){
@@ -93,7 +93,7 @@ function deleteStudent(event){
         const email = event.target.dataset.email;
         document.querySelector(`.student_row[data-email="${email}"]`).remove();
         // fetch students and remove student from store
-        fetchAndAddStudents(email);
+        deleteStudentFromStore(email);
         
     }
 }
@@ -112,7 +112,7 @@ function editStudent(event){
 
         document.querySelector(`.student_row[data-email="${email}"]`).remove();
 
-        fetchAndAddStudents(email);
+        deleteStudentFromStore(email);
         
     }
 }
