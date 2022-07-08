@@ -1,5 +1,4 @@
-function validation(student_name,student_age,student_email){
-        
+function validation(student_name,student_age,student_email){       
     let error = document.querySelector('#error-container');
     // if student is too young to be a student
     if(student_age < 1){
@@ -118,6 +117,10 @@ function editStudent(event){
 }
 function fetchStudentsFromStore(){
     let students = JSON.parse(localStorage.getItem('students'));
+    if(!students){
+        students = [];
+        return students;
+    }
     return students;
 }
 function addStudentsToStore(students){
@@ -145,7 +148,7 @@ document.querySelector('#student_form').addEventListener('submit',  (event) => {
     event.preventDefault();
     addStudent();
 });
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
     let students = fetchStudentsFromStore();
     for(let student of students){
         listStudent(student.name, student.class, student.age, student.email)
